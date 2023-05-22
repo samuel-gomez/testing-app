@@ -1,0 +1,44 @@
+.AppBar {
+  background-color: #0168ab;
+  background-image: url("./AppBar.background.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  color: white;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.AppBar-logo {
+  height: 40px;
+}
+
+.AppBar a {
+  line-height: 1.5;
+  border: 2px solid transparent;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+.AppBar a.active {
+  font-weight: bold;
+  cursor: default;
+}
+.AppBar a.active::after {
+  font-weight: normal;
+}
+
+.AppBar a:not(:last-child) {
+  margin-right: 0.5rem;
+  position: relative;
+}
+
+.AppBar a:not(.active):hover {
+  border-bottom-color: white;
+}
+
+.AppBar hr {
+  flex-grow: 1;
+  visibility: hidden;
+}

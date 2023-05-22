@@ -1,0 +1,34 @@
+import React from "react";
+import "./Card.css";
+
+const Card = ({ children }) => (
+  <section className="Card card">
+    <div className="card-content">{children}</div>
+  </section>
+);
+
+const Avatar = ({ photoUrl, altText }) => (
+  <img className="card-avatar" src={photoUrl} alt={altText} />
+);
+
+const Title = ({ mainTitle, subTitle }) => (
+  <div className="card-title">
+    <div>{mainTitle}</div>
+    <div className="card-subtitle">{subTitle}</div>
+  </div>
+);
+
+const Info = ({ icon, children, desc = icon }) => (
+  <div className="card-info">
+    <i className="material-icons" title={desc}>
+      {icon}
+    </i>
+    <span>{children}</span>
+  </div>
+);
+
+Card.Avatar = Avatar;
+Card.Title = Title;
+Card.Info = Info;
+
+export default Card;
