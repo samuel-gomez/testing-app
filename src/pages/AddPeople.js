@@ -4,39 +4,40 @@ import React, {
   useContext,
   useEffect,
   useMemo,
-  useState
-} from "react";
-import Input from "../components/Input";
+  useState,
+} from 'react';
+import Input from '../components/Input';
 
 const INITIAL = {
-  firstname: "John",
-  lastname: "Doe",
-  email: "john.doe@gmail.com",
-  manager: "unknown"
+  firstname: 'John',
+  lastname: 'Doe',
+  email: 'john.doe@gmail.com',
+  manager: 'unknown',
 };
+
 const FormContext = createContext({ data: INITIAL, onChange: () => ({}) });
 
 const Form = ({ defaultValue, onSubmit, children }) => {
   const [data, setData] = useState(defaultValue);
 
-  const handleChange = useCallback((e) => {
-    setData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+  const handleChange = useCallback(e => {
+    setData(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
   }, []);
 
-  const value = useMemo(() => ({ data, onChange: handleChange }), [
+  const contextValue = useMemo(() => ({ data, onChange: handleChange }), [
     data,
-    handleChange
+    handleChange,
   ]);
 
   const handleSubmit = useCallback(
-    (e) => {
+    e => {
       e.preventDefault();
-      onSubmit(value);
+      onSubmit(contextValue.data);
     },
-    [value, onSubmit]
+    [contextValue.data, onSubmit],
   );
   return (
-    <FormContext.Provider value={value}>
+    <FormContext.Provider value={contextValue}>
       <form onSubmit={handleSubmit}>{children}</form>
     </FormContext.Provider>
   );
@@ -50,7 +51,6 @@ const SubmitButton = () => (
 
 const InputWithContext = ({ id, ...props }) => {
   const { data, onChange } = useContext(FormContext);
-
   return <Input onChange={onChange} value={data[id]} id={id} {...props} />;
 };
 
@@ -58,7 +58,7 @@ const DisplayData = () => {
   const { data } = useContext(FormContext);
   return (
     <ul className="collection">
-      {Object.keys(data).map((key) => (
+      {Object.keys(data).map(key => (
         <li key={key} className="collection-item">
           {data[key]}
         </li>
@@ -72,11 +72,11 @@ const AddPeople = () => {
     window.M.updateTextFields();
   }, []);
 
-  const handleSubmit = useCallback((value) => console.log(value), []);
+  const onSubmit = useCallback(data => console.log(data), []);
 
   return (
     <div className="card-container">
-      <Form defaultValue={INITIAL} onSubmit={handleSubmit}>
+      <Form defaultValue={INITIAL} onSubmit={onSubmit}>
         <InputWithContext
           name="firstname"
           id="firstname"
