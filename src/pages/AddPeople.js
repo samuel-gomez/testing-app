@@ -30,19 +30,22 @@ const Form = ({ defaultValue = INITIAL }) => {
     setResult(null);
     const { firstname, lastname, email, manager } = e.target.elements;
     try {
-      const data = await fetch("http://localhost:8888/api/people/add", {
-        method: "POST",
-        Accept: "application/json",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstname: firstname.value,
-          lastname: lastname.value,
-          email: email.value,
-          manager: manager.value,
-        }),
-      });
+      const data = await fetch(
+        "https://react-starter-api.vercel.app/api/people/add",
+        {
+          method: "POST",
+          Accept: "application/json",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstname: firstname.value,
+            lastname: lastname.value,
+            email: email.value,
+            manager: manager.value,
+          }),
+        }
+      );
       const { responseBody, anomaly = null } = await data.json();
       if (anomaly) {
         setErrorMessage(anomaly.label);

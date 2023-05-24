@@ -1,10 +1,14 @@
 # Sujet d'évaluation M1 CYBER : Testing
 
+- installer le projet : `npm i`
+- lancer le projet en local : `npm start`
+
 ## Analyse statique
 
 Mettez en place tous les outils d'analyse statique vus en cours (Eslint, Prettier, husky, accessibilité, ...)
 
 > Note : La configuration devra être faite manuellement (pas d'utilisation du package kcd-scripts)
+> Note : A vous de rajouter les scripts dans le package.json
 
 ### Configuration de Jest
 
