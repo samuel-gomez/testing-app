@@ -5,106 +5,144 @@ import React, {
   useEffect,
   useMemo,
   useState,
-} from 'react';
-import Input from '../components/Input';
+} from "react";
+import Input from "../components/Input";
 
 const INITIAL = {
-  firstname: 'John',
-  lastname: 'Doe',
-  email: 'john.doe@gmail.com',
-  manager: 'unknown',
+  firstname: "John",
+  lastname: "Doe",
+  email: "john.doe@gmail.com",
+  manager: "unknown",
 };
 
-const FormContext = createContext({ data: INITIAL, onChange: () => ({}) });
-
-const Form = ({ defaultValue, onSubmit, children }) => {
+const Form = ({ defaultValue = INITIAL }) => {
   const [data, setData] = useState(defaultValue);
+  const { setResult } = useContext(AddPeopleContext);
+  const [errorMessage, setErrorMessage] = React.useState(null);
 
-  const handleChange = useCallback(e => {
-    setData(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
+  const handleChange = useCallback((e) => {
+    setData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
   }, []);
 
-  const contextValue = useMemo(() => ({ data, onChange: handleChange }), [
-    data,
-    handleChange,
-  ]);
+  const handleSubmit = useCallback(async (e) => {
+    e.preventDefault();
+    setErrorMessage(null);
+    setResult(null);
+    const { firstname, lastname, email, manager } = e.target.elements;
+    try {
+      const data = await fetch("http://localhost:8888/api/people/add", {
+        method: "POST",
+        Accept: "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstname: firstname.value,
+          lastname: lastname.value,
+          email: email.value,
+          manager: manager.value,
+        }),
+      });
+      const { responseBody, anomaly = null } = await data.json();
+      if (anomaly) {
+        setErrorMessage(anomaly.label);
+      } else {
+        setResult(responseBody);
+      }
+    } catch (error) {
+      setErrorMessage(error);
+    }
+  }, []);
 
-  const handleSubmit = useCallback(
-    e => {
-      e.preventDefault();
-      onSubmit(contextValue.data);
-    },
-    [contextValue.data, onSubmit],
-  );
   return (
-    <FormContext.Provider value={contextValue}>
-      <form onSubmit={handleSubmit}>{children}</form>
-    </FormContext.Provider>
+    <>
+      {errorMessage && (
+        <div role="alert" style={{ color: "red", fontWeight: "bold" }}>
+          {errorMessage}
+        </div>
+      )}
+      <form onSubmit={handleSubmit}>
+        <Input
+          name="firstname"
+          id="firstname"
+          icon="face"
+          label="The firstname"
+          onChange={handleChange}
+          value={data.firstname}
+        />
+        <Input
+          name="lastname"
+          id="lastname"
+          icon="account_circle"
+          label="The lastname"
+          onChange={handleChange}
+          value={data.lastname}
+        />
+        <Input
+          name="email"
+          id="email"
+          icon="email"
+          label="The email"
+          onChange={handleChange}
+          value={data.email}
+        />
+        <Input
+          name="manager"
+          id="manager"
+          icon="supervisor_account"
+          label="The manager"
+          onChange={handleChange}
+          value={data.manager}
+        />
+        <button className="waves-effect waves-light btn">
+          <i className="material-icons left">add</i>Soumettre
+        </button>
+      </form>
+    </>
   );
-};
-
-const SubmitButton = () => (
-  <button className="waves-effect waves-light btn">
-    <i className="material-icons left">add</i>Soumettre
-  </button>
-);
-
-const InputWithContext = ({ id, ...props }) => {
-  const { data, onChange } = useContext(FormContext);
-  return <Input onChange={onChange} value={data[id]} id={id} {...props} />;
 };
 
 const DisplayData = () => {
-  const { data } = useContext(FormContext);
+  const { result } = useContext(AddPeopleContext);
   return (
-    <ul className="collection">
-      {Object.keys(data).map(key => (
-        <li key={key} className="collection-item">
-          {data[key]}
-        </li>
-      ))}
-    </ul>
+    <>
+      <h4>Données sauvegardées :</h4>
+      {result ? (
+        <ul className="collection">
+          {Object.keys(result).map((key) => (
+            <li key={key} className="collection-item">
+              {result[key]}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Pas de donnée</p>
+      )}
+    </>
   );
 };
+
+const AddPeopleContext = createContext({ result: null, setResult: () => ({}) });
 
 const AddPeople = () => {
   useEffect(() => {
     window.M.updateTextFields();
   }, []);
 
-  const onSubmit = useCallback(data => console.log(data), []);
+  const [result, setResult] = React.useState(null);
+  const contextResult = useMemo(() => ({ result, setResult }), [
+    result,
+    setResult,
+  ]);
 
   return (
     <div className="card-container">
-      <Form defaultValue={INITIAL} onSubmit={onSubmit}>
-        <InputWithContext
-          name="firstname"
-          id="firstname"
-          icon="face"
-          label="The firstname"
-        />
-        <InputWithContext
-          name="lastname"
-          id="lastname"
-          icon="account_circle"
-          label="The lastname"
-        />
-        <InputWithContext
-          name="email"
-          id="email"
-          icon="email"
-          label="The email"
-        />
-        <InputWithContext
-          name="manager"
-          id="manager"
-          icon="supervisor_account"
-          label="The manager"
-        />
-        <SubmitButton />
-        <h3>Données :</h3>
-        <DisplayData />
-      </Form>
+      <div className="form">
+        <AddPeopleContext.Provider value={contextResult}>
+          <Form />
+          <DisplayData />
+        </AddPeopleContext.Provider>
+      </div>
     </div>
   );
 };

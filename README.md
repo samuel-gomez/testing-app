@@ -2,15 +2,19 @@
 
 ## Analyse statique
 
-Mettez en place tous les outils d'analyse statique vus en cours (Eslint, Prettier, husky, ...)
+Mettez en place tous les outils d'analyse statique vus en cours (Eslint, Prettier, husky, accessibilité, ...)
 
-> Note : La configuration devra être faite manuellement (l'utilisation de 
+> Note : La configuration devra être faite manuellement (pas d'utilisation du package kcd-scripts)
 
 ### Configuration de Jest
 
-  - Il faudra avoir une couverture de minimum de 80% (idéalement 100%)
-  - les fichiers index.js, constants.js devront avoir été ignorés
-  - Ajouter les outils d'accessibilité
+- Il faudra avoir une couverture de minimum de 80% (idéalement 100%)
+- les fichiers index.js devront avoir été ignorés du coverage
+- Ajouter les outils d'accessibilité
+
+### Mock appel d'api
+
+- il faudra installer et configurer msw (pas de mock manuel avec jest.mock)
 
 ## Ecrire les scenarios de test
 
@@ -27,7 +31,6 @@ L'ensemble des fichiers devront être testés unitairement
 
 ### Tests d'intégration
 
-Sur la base des scénarios, écrire l'ensemble des tests d'intégration 
+Sur la base des scénarios, écrire l'ensemble des tests d'intégration
 
-
-
+> Vous pouvez faire de la refacto (sans casser le fonctionnel) pour faciliter les tests
