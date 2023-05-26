@@ -1,7 +1,7 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import "./AppBar.css";
-import logo from "./AppBar.logo.svg";
+import React from 'react'
+import {NavLink} from 'react-router-dom'
+import './AppBar.css'
+import logo from './AppBar.logo.svg'
 
 const AppBar = () => (
   <nav className="AppBar">
@@ -11,6 +11,6 @@ const AppBar = () => (
     <NavLink to="/discover">Discover</NavLink>
     <NavLink to="/add-people">Add people</NavLink>
   </nav>
-);
+)
 
-export default AppBar;
+export default AppBar

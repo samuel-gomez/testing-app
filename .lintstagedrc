@@ -1,0 +1,4 @@
+{ 
+    "src/*": "npmrunformat:fix", 
+    "src/*.{ts,js}": "npmrunlint:fix" 
+}

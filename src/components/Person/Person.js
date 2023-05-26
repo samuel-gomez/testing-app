@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import * as PropTypes from "prop-types";
-import Card from "../Card";
+import React from 'react'
+import {Link} from 'react-router-dom'
+import * as PropTypes from 'prop-types'
+import Card from '../Card'
 
-const Person = ({ person }) => (
+const Person = ({person}) => (
   <Card>
     <Card.Avatar
       photoUrl={person.photo}
@@ -29,7 +29,7 @@ const Person = ({ person }) => (
       </Card.Info>
     )}
   </Card>
-);
+)
 
 Person.propTypes = {
   person: PropTypes.shape({
@@ -41,8 +41,8 @@ Person.propTypes = {
     email: PropTypes.string.isRequired,
     phone: PropTypes.number.isRequired,
     managerId: PropTypes.string,
-    manager: PropTypes.string
-  })
-};
+    manager: PropTypes.string,
+  }),
+}
 
-export default Person;
+export default Person
