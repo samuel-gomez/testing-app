@@ -7,7 +7,7 @@
         }
     },
     "parser": "@babel/eslint-parser",
-    "extends":["eslint:recommanded"],
+    "extends":["eslint:recommended", "eslint-config-prettier"],
     "rules": { 
         "strict": ["error", "never"]
     } 

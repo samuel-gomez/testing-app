@@ -1,6 +1,6 @@
-import React from "react";
-import Input from "../Input";
+import React from 'react'
+import Input from '../Input'
 
-const SearchInput = (props) => <Input icon="search" {...props} />;
+const SearchInput = props => <Input icon="search" {...props} />
 
-export default SearchInput;
+export default SearchInput

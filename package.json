@@ -6,7 +6,13 @@
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack-dev-server --mode=development",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --mode=production",
     "postbuild": "cp ./public/index.html ./dist/index.html",
-    "preview": "serve --no-clipboard --single --listen 8080 dist"
+    "preview": "serve --no-clipboard --single --listen 8080 dist",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
+    "format:fix": "npm run format -- --write",
+    "format:check": "npm run format -- --check",
+    "lint": "eslint --ignore-path .gitignore ./src",
+    "lint:fix": "npm run lint -- --fix",
+    "check": "npm run lint && npm run build && npm run format:check"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
@@ -19,6 +25,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^3.2.0",
     "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
     "file-loader": "^5.0.2",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
