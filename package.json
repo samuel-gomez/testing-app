@@ -12,7 +12,8 @@
     "format:check": "npm run format -- --check",
     "lint": "eslint --ignore-path .gitignore ./src",
     "lint:fix": "npm run lint -- --fix",
-    "check": "npm run lint && npm run build && npm run format:check"
+    "check": "npm run lint && npm run build && npm run format:check",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
@@ -34,7 +35,8 @@
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.9.0",
+    "husky": "^8.0.0"
   },
   "dependencies": {
     "react": "17.0.1",
