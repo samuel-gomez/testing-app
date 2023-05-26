@@ -29,14 +29,15 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "^7.32.2",
     "file-loader": "^5.0.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.2",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
     "serve": "^11.2.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0",
-    "husky": "^8.0.0"
+    "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
     "react": "17.0.1",

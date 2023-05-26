@@ -2,6 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # Check Prettier standards 
+npx --no-install lint-staged
 npm run format:check || 
 ( 
     echo '🤢❌Prettier Check Failed. Run npm run format, add changes and try commit again.'; 
@@ -21,3 +22,4 @@ npm run build ||
 ) 
 # If everything passes... Now we can commit 
 echo '✅You win this time... I am committing this now.'
+
