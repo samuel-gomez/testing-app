@@ -7,6 +7,8 @@ import AppBar from './components/AppBar'
 import Spinner from './components/Spinner'
 import AddPeople from './pages/AddPeople'
 
+import Discover from 'pages/Discover'
+
 import ListAll from './pages/ListAll'
 import ShowPerson from './pages/ShowPerson'
 
